@@ -27,6 +27,7 @@ public class DashboardWidgetWindow extends Div {
     private boolean editable;
     private int span = 1;
     private Window content;
+    private DashboardContext context;
 
     public DashboardWidgetWindow(DashboardWidget widget, Field field) {
         setZclass("dashboard-widget");
@@ -39,13 +40,14 @@ public class DashboardWidgetWindow extends Div {
         if (widget.isTitleVisible()) {
             content.setClosable(widget.isClosable());
             content.setMaximizable(widget.isMaximizable());
-            setEditable(widget.isEditable());
-            content.setTitle(widget.getTitle());
+            setEditable(widget.isEditable());            
+            content.setSclass("default-border");
         }
 
     }
 
     public void initView(DashboardContext context) {
+        this.context = context;
         content.getChildren().clear();
         renderTitle();
 
@@ -58,13 +60,24 @@ public class DashboardWidgetWindow extends Div {
         }
     }
 
+    public void reload() {
+        widget.init(context);
+        initView(context);
+    }
+
+    public DashboardContext getDashboardContext() {
+        return context;
+    }
+
     private void renderTitle() {
         if (widget.isTitleVisible()) {
             Caption caption = new Caption(widget.getTitle());
             caption.setParent(content);
+
             if (isEditable()) {
                 Button btn = new Button();
                 btn.setIconSclass("z-icon-edit");
+                btn.setZclass("z-window-icon");
                 btn.setParent(caption);
                 btn.addEventListener(Events.ON_CLICK, evt -> Events.postEvent(new Event(ON_EDIT, this, widget)));
             }

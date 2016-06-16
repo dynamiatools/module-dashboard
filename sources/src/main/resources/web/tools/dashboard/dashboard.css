@@ -9,18 +9,48 @@ and open the template in the editor.
 */
 
 .dashboard .dashboard-widget{
-    padding: 6px;
+    padding: 8px;
 }
 
 .dashboard .dashboard-widget .z-window{
-    border:  1px solid #ececec;
-    border-radius: 4px;    
+    background-color: transparent;  
 }
 
-.dashboard .dashboard-widget .z-window-content{
-    padding: 10px;    
+.dashboard .dashboard-widget .z-window-header{
+    background: white;
+}
+
+.dashboard .dashboard-widget .z-window-header .z-caption-content{
+    padding-left: 10px;
+    font-weight: 700;
+}
+
+.dashboard .dashboard-widget .z-window-content{    
+    background: none;
+    padding: 0;
+    margin: 0;
 }
 
 .dashboard .dashboard-widget .z-progressmeter{
     height: 7px;
+}
+
+.dashboard .dashboard-widget .default-border{
+    background-color: white;
+    border:  1px solid #ececec;
+    border-radius: 4px;        
+}
+
+.dashboard .dashboard-widget .padding10{
+    padding: 10px;   
+}
+
+.dashboard .dashboard-widget .default-height{
+    height: 300px;
+    overflow: auto;
+}
+
+.dashboard .dashboard-widget .date{
+    color: #999;
+    font-style: italic;
 }

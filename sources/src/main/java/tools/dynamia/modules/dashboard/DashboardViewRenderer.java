@@ -37,7 +37,7 @@ public class DashboardViewRenderer implements ViewRenderer<List<DashboardWidgetW
         }
 
         Dashboard dashboard = new Dashboard();
-        
+
         renderFields(dashboard, descriptor, value, columns);
         dashboard.setValue(value);
         dashboard.initWidgets();
@@ -61,7 +61,14 @@ public class DashboardViewRenderer implements ViewRenderer<List<DashboardWidgetW
                 window.setSpan((int) field.getParams().get(Viewers.PARAM_SPAN));
             }
             int realSpan = getRealSpan(window.getSpan(), columns);
-            window.setSclass("col-md-" + realSpan+" col-sm-" + realSpan);
+
+            String colxs = "";
+            if (field.getParams().containsKey(Viewers.PARAM_SPAN + "-xs")) {
+                int spanxs = (int) field.getParams().get(Viewers.PARAM_SPAN + "-xs");
+                colxs = " col-xs-" + toBootstrapColumns(spanxs);
+            }
+
+            window.setSclass("col-md-" + realSpan + " col-sm-" + realSpan + colxs);
             spaceLeft = spaceLeft - realSpan;
             if (spaceLeft <= 0) {
                 spaceLeft = 12;
@@ -74,7 +81,7 @@ public class DashboardViewRenderer implements ViewRenderer<List<DashboardWidgetW
 
     public Div newRow(Dashboard dashboard) {
         Div row = new Div();
-       
+
         row.setParent(dashboard);
         return row;
     }

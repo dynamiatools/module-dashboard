@@ -7,6 +7,7 @@ package tools.dynamia.modules.dashboard;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import org.zkoss.zul.Div;
 import tools.dynamia.viewers.View;
 import tools.dynamia.viewers.ViewDescriptor;
@@ -62,6 +63,15 @@ public class Dashboard extends Div implements View<List<DashboardWidgetWindow>> 
     @Override
     public void setValue(List<DashboardWidgetWindow> value) {
         this.value = value;
+    }
+
+    public DashboardWidgetWindow getWidgetWindow(String name) {
+        Optional<DashboardWidgetWindow> windows = value.stream().filter(w -> w.getField().getName().equals(name)).findFirst();
+        if (windows.isPresent()) {
+            return windows.get();
+        } else {
+            return null;
+        }
     }
 
 }
