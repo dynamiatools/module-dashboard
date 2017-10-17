@@ -27,12 +27,12 @@
             <version>1.0.0</version>
         </dependency>
     </dependencies>
-    
+
+
     <distributionManagement>
         <repository>
             <id>nexus</id>
-            <url>http://server.dynamiasoluciones.com:8081/nexus/content/repositories/releases</url>
-        </repository>        
+            <url>http://mde.dynamiaweb.com:8081/repository/releases/</url>
+        </repository>
     </distributionManagement>
-  
 </project>
