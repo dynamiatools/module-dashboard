@@ -49,7 +49,7 @@ public class DashboardViewRenderer implements ViewRenderer<List<DashboardWidgetW
 
 	private void loadActions(Dashboard dashboard) {
 		ActionLoader<DashboardAction> loader = new ActionLoader<>(DashboardAction.class);
-		loader.load().forEach(a -> dashboard.addAction(a));
+		loader.load().forEach(dashboard::addAction);
 
 	}
 

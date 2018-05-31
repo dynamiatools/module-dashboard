@@ -18,11 +18,7 @@ public abstract class DashboardUtils {
         Optional<DashboardWidget> widget = Containers.get().findObjects(DashboardWidget.class,
                 (DashboardWidget object) -> (widgetId.equals(object.getId()))).stream().findFirst();
 
-        if (widget.isPresent()) {
-            return widget.get();
-        } else {
-            return null;
-        }
+        return widget.orElse(null);
     }
 
 }

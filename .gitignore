@@ -7,3 +7,6 @@ tmp/
 logs/
 bin/
 gen/
+*.iml
+.idea
+*.log

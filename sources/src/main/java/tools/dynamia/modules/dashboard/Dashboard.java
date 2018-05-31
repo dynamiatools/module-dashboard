@@ -32,13 +32,7 @@ public class Dashboard extends Div implements View<List<DashboardWidgetWindow>> 
 
 	public Dashboard() {
 		setSclass("dashboard");
-		actionToolbar = new ActionToolbar(new ActionEventBuilder() {
-
-			@Override
-			public ActionEvent buildActionEvent(Object source, Map<String, Object> params) {
-				return new ActionEvent(Dashboard.this, Dashboard.this);
-			}
-		});
+		actionToolbar = new ActionToolbar((source, params) -> new ActionEvent(Dashboard.this, Dashboard.this));
 		appendChild(actionToolbar);
 	}
 
@@ -84,11 +78,7 @@ public class Dashboard extends Div implements View<List<DashboardWidgetWindow>> 
 	public DashboardWidgetWindow getWidgetWindow(String name) {
 		Optional<DashboardWidgetWindow> windows = value.stream().filter(w -> w.getField().getName().equals(name))
 				.findFirst();
-		if (windows.isPresent()) {
-			return windows.get();
-		} else {
-			return null;
-		}
+		return windows.orElse(null);
 	}
 
 	public ActionToolbar getActionToolbar() {
