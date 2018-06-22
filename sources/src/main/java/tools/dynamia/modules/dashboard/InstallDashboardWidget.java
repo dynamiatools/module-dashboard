@@ -12,7 +12,7 @@ import java.lang.annotation.*;
 
 /**
  *
- * @author mario
+ * @author Mario Serrano Leones
  */
 
 @Target(ElementType.TYPE)

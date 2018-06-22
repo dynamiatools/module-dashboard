@@ -11,7 +11,7 @@ import tools.dynamia.viewers.ViewType;
 
 /**
  *
- * @author mario
+ * @author Mario Serrano Leones
  */
 @Component
 public class DashboardViewType implements ViewType {

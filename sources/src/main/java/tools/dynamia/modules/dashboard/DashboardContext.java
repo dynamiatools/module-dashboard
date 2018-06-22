@@ -11,7 +11,7 @@ import tools.dynamia.viewers.Field;
 
 /**
  *
- * @author mario
+ * @author Mario Serrano Leones
  */
 public class DashboardContext {
 

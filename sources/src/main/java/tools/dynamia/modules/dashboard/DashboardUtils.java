@@ -10,7 +10,7 @@ import tools.dynamia.integration.Containers;
 
 /**
  *
- * @author mario
+ * @author Mario Serrano Leones
  */
 public abstract class DashboardUtils {
 

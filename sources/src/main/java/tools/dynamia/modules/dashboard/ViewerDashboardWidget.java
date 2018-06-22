@@ -9,7 +9,7 @@ import tools.dynamia.zk.viewers.ui.Viewer;
 
 /**
  *
- * @author mario
+ * @author Mario Serrano Leones
  */
 public abstract class ViewerDashboardWidget extends AbstractDashboardWidget<Viewer> {
 

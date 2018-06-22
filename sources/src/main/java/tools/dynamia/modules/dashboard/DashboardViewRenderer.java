@@ -21,7 +21,7 @@ import tools.dynamia.viewers.util.Viewers;
 
 /**
  *
- * @author mario
+ * @author Mario Serrano Leones
  */
 public class DashboardViewRenderer implements ViewRenderer<List<DashboardWidgetWindow>> {
 

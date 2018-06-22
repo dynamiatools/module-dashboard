@@ -7,7 +7,7 @@ package tools.dynamia.modules.dashboard;
 
 /**
  *
- * @author mario
+ * @author Mario Serrano Leones
  */
 public abstract class ZulDashboardWidget extends AbstractDashboardWidget<String> {
 

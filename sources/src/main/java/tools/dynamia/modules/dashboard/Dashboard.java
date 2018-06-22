@@ -21,7 +21,7 @@ import tools.dynamia.zk.actions.ActionToolbar;
 
 /**
  *
- * @author mario
+ * @author Mario Serrano Leones
  */
 public class Dashboard extends Div implements View<List<DashboardWidgetWindow>> {
 

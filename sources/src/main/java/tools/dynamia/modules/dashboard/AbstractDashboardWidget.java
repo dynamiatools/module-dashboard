@@ -7,7 +7,7 @@ package tools.dynamia.modules.dashboard;
 
 /**
  *
- * @author mario
+ * @author Mario Serrano Leones
  */
 public abstract class AbstractDashboardWidget<V> implements DashboardWidget<V> {
 

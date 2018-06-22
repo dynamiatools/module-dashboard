@@ -10,7 +10,7 @@ import tools.dynamia.chartjs.ChartjsData;
 
 /**
  *
- * @author mario
+ * @author Mario Serrano Leones
  */
 public abstract class ChartjsDashboardWidget extends AbstractDashboardWidget<Chartjs> {
 
