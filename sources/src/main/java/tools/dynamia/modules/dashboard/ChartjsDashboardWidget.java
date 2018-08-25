@@ -5,8 +5,9 @@
  */
 package tools.dynamia.modules.dashboard;
 
-import tools.dynamia.chartjs.Chartjs;
-import tools.dynamia.chartjs.ChartjsData;
+
+import tools.dynamia.zk.addons.chartjs.Chartjs;
+import tools.dynamia.zk.addons.chartjs.ChartjsData;
 
 /**
  *
