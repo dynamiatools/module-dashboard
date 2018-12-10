@@ -85,8 +85,4 @@
     <orderEntry type="library" name="Maven: org.springframework:spring-expression:4.3.20.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: tools.dynamia.zk.addons:chartjs-zk:2.7.2_R1" level="project" />
   </component>
-  <component name="sonarModuleSettings">
-    <option name="localAnalysisScripName" value="&lt;PROJECT&gt;" />
-    <option name="serverName" value="&lt;PROJECT&gt;" />
-  </component>
 </module>

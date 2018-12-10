@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>tools.dynamia.modules</groupId>
     <artifactId>tools.dynamia.modules.dashboard</artifactId>
-    <name>Dynamia Modules - Dashboard (${project.version})</name>
+    <name>DynamiaModules - Dashboard (${project.version})</name>
     <version>1.1.0.Beta</version>
     <packaging>jar</packaging>
     <properties>
