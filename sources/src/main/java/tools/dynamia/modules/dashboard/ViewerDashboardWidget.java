@@ -1,10 +1,8 @@
-
 package tools.dynamia.modules.dashboard;
 
 import tools.dynamia.zk.viewers.ui.Viewer;
 
 /**
- *
  * @author Mario Serrano Leones
  */
 public abstract class ViewerDashboardWidget extends AbstractDashboardWidget<Viewer> {
@@ -29,6 +27,8 @@ public abstract class ViewerDashboardWidget extends AbstractDashboardWidget<View
         if (viewer.getDescriptorId() == null) {
             viewer.setViewType(getViewType());
         }
+        viewer.setVflex("1");
+        viewer.setContentVflex("1");
         viewer.setValue(viewValue);
 
         return viewer;

@@ -1,6 +1,8 @@
 
 package tools.dynamia.modules.dashboard;
 
+import java.util.Map;
+
 /**
  *
  * @author Mario Serrano Leones
@@ -71,4 +73,8 @@ public abstract class AbstractDashboardWidget<V> implements DashboardWidget<V> {
         this.asyncSupported = asyncSupported;
     }
 
+    @Override
+    public void update(Map<String,Object> params) {
+        //do nothing by default
+    }
 }

@@ -1,18 +1,15 @@
-
 package tools.dynamia.modules.dashboard;
 
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.Events;
 import org.zkoss.zul.Button;
-import org.zkoss.zul.Caption;
 import org.zkoss.zul.Div;
-import org.zkoss.zul.Window;
+import org.zkoss.zul.Label;
 import tools.dynamia.viewers.Field;
 import tools.dynamia.zk.util.ZKUtil;
 
 /**
- *
  * @author Mario Serrano Leones
  */
 public class DashboardWidgetWindow extends Div {
@@ -22,37 +19,54 @@ public class DashboardWidgetWindow extends Div {
     private Field field;
     private boolean editable;
     private int span = 1;
-    private Window content;
+    private Div content;
+    private Div heading;
+    private Div body;
     private DashboardContext context;
 
     public DashboardWidgetWindow(DashboardWidget widget, Field field) {
         setZclass("dashboard-widget");
 
+
         this.widget = widget;
         this.field = field;
-        this.content = new Window();
+        this.content = new Div();
+
         this.content.setParent(this);
+        this.content.setVflex("1");
+
+        this.heading = new Div();
+        this.heading.setSclass("panel-heading");
+        this.heading.setParent(content);
+        this.heading.setStyle("display: none");
+
+        this.body = new Div();
+        this.body.setSclass("panel-body");
+        this.body.setVflex("1");
+        this.body.setParent(content);
+
 
         if (widget.isTitleVisible()) {
-            content.setClosable(widget.isClosable());
-            content.setMaximizable(widget.isMaximizable());
-            setEditable(widget.isEditable());            
-            content.setSclass("default-border");
+            this.heading.setStyle("display: block");
+            //content.setClosable(widget.isClosable());
+            //content.setMaximizable(widget.isMaximizable());
+            setEditable(widget.isEditable());
+            this.content.setSclass("panel panel-colored panel-primary");
         }
 
     }
 
     public void initView(DashboardContext context) {
         this.context = context;
-        content.getChildren().clear();
+        body.getChildren().clear();
         renderTitle();
 
         Object view = widget.getView();
         if (view instanceof Component) {
-            ((Component) view).setParent(content);
+            ((Component) view).setParent(body);
         } else if (view instanceof String) {
             String url = (String) view;
-            ZKUtil.createComponent(url, content, context.getDataMap());
+            ZKUtil.createComponent(url, body, context.getDataMap());
         }
     }
 
@@ -67,8 +81,9 @@ public class DashboardWidgetWindow extends Div {
 
     private void renderTitle() {
         if (widget.isTitleVisible()) {
-            Caption caption = new Caption(widget.getTitle());
-            caption.setParent(content);
+            Label caption = new Label(widget.getTitle());
+            caption.setZclass("none");
+            caption.setParent(heading);
 
             if (isEditable()) {
                 Button btn = new Button();
@@ -109,8 +124,14 @@ public class DashboardWidgetWindow extends Div {
         return field;
     }
 
-    public Window getContent() {
+    public Component getContent() {
         return content;
+    }
+
+    public void setTitleBackground(String bg) {
+        if (widget.isTitleVisible()) {
+            this.content.setSclass("panel panel-colored " + bg);
+        }
     }
 
 }

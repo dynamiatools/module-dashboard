@@ -8,49 +8,65 @@ and open the template in the editor.
     Author     : mario
 */
 
-.dashboard .dashboard-widget{
+.dashboard .dashboard-widget {
     padding: 8px;
 }
 
-.dashboard .dashboard-widget .z-window{
-    background-color: transparent;  
+.dashboard .dashboard-widget .z-window {
+    background-color: transparent;
 }
 
-.dashboard .dashboard-widget .z-window-header{
+.dashboard .dashboard-widget .z-window-header {
     background: white;
+    text-align: left;
 }
 
-.dashboard .dashboard-widget .z-window-header .z-caption-content{
+.dashboard .dashboard-widget .z-window-header .z-caption-content {
     padding-left: 10px;
     font-weight: 700;
+    font-size: 14px;
+    color: #053b5a;
 }
 
-.dashboard .dashboard-widget .z-window-content{    
+.dashboard .dashboard-widget .z-window-content {
     background: none;
     padding: 0;
     margin: 0;
 }
 
-.dashboard .dashboard-widget .z-progressmeter{
+.dashboard .dashboard-widget .z-progressmeter {
     height: 7px;
 }
 
-.dashboard .dashboard-widget .default-border{
+.dashboard .dashboard-widget .default-border {
     background-color: white;
-    border:  1px solid #ececec;
-    border-radius: 4px;        
+    border: 1px solid #ececec;
+    border-radius: 4px;
 }
 
-.dashboard .dashboard-widget .padding10{
-    padding: 10px;   
+.dashboard .dashboard-widget .padding10 {
+    padding: 10px;
 }
 
-.dashboard .dashboard-widget .default-height{
+.dashboard .dashboard-widget .default-height {
     height: 300px;
     overflow: auto;
 }
 
-.dashboard .dashboard-widget .date{
+.dashboard .dashboard-widget .date {
     color: #999;
     font-style: italic;
+}
+
+.dashboard .dashboard-widget .panel {
+    margin-bottom: 0 !important;
+}
+
+.dashboard .dashboard-widget .panel-body {
+    padding: 3px;
+}
+
+.dashboard .dashboard-widget .panel-heading {
+    color: white !important;
+    font-weight: 700;
 }

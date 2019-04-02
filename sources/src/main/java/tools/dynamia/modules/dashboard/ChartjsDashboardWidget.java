@@ -1,4 +1,3 @@
-
 package tools.dynamia.modules.dashboard;
 
 
@@ -6,7 +5,6 @@ import tools.dynamia.zk.addons.chartjs.Chartjs;
 import tools.dynamia.zk.addons.chartjs.ChartjsData;
 
 /**
- *
  * @author Mario Serrano Leones
  */
 public abstract class ChartjsDashboardWidget extends AbstractDashboardWidget<Chartjs> {
@@ -21,14 +19,14 @@ public abstract class ChartjsDashboardWidget extends AbstractDashboardWidget<Cha
     @Override
     public Chartjs getView() {
         Chartjs chart = new Chartjs(getChartjsType(), data);
-        chart.setTitle(getTitle());
+
         customizeChart(chart);
         return chart;
     }
 
-    abstract ChartjsData initChartjsData(DashboardContext context);
+    public abstract ChartjsData initChartjsData(DashboardContext context);
 
-    abstract String getChartjsType();
+    public abstract String getChartjsType();
 
     protected void customizeChart(Chartjs chart) {
 
