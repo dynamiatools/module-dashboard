@@ -2,6 +2,7 @@ package tools.dynamia.modules.dashboard;
 
 
 import tools.dynamia.zk.addons.chartjs.Chartjs;
+import tools.dynamia.zk.addons.chartjs.ChartjsColorPalette;
 import tools.dynamia.zk.addons.chartjs.ChartjsData;
 
 /**
@@ -10,6 +11,9 @@ import tools.dynamia.zk.addons.chartjs.ChartjsData;
 public abstract class ChartjsDashboardWidget extends AbstractDashboardWidget<Chartjs> {
 
     private ChartjsData data;
+    private static ChartjsColorPalette COLORS = new ChartjsColorPalette("Material", new String[]{
+
+    });
 
     @Override
     public void init(DashboardContext context) {
@@ -19,7 +23,6 @@ public abstract class ChartjsDashboardWidget extends AbstractDashboardWidget<Cha
     @Override
     public Chartjs getView() {
         Chartjs chart = new Chartjs(getChartjsType(), data);
-
         customizeChart(chart);
         return chart;
     }
