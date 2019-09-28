@@ -68,7 +68,16 @@ public class DashboardViewRenderer implements ViewRenderer<List<DashboardWidgetW
                 colxs = " col-xs-" + toBootstrapColumns(spanxs);
             }
 
-            window.setSclass("col-md-" + realSpan + " col-sm-" + realSpan + colxs);
+            int tabletColSpan = 6;
+            try {
+                if (field.getParams().containsKey(Viewers.PARAM_SPAN + "-sm")) {
+                    tabletColSpan = Integer.parseInt(field.getParams().get(Viewers.PARAM_SPAN + "-sm").toString());
+                    tabletColSpan = getRealSpan(tabletColSpan, columns);
+                }
+            } catch (Exception e) {
+            }
+
+            window.setSclass("col-md-" + realSpan + " col-sm-" + tabletColSpan + colxs);
             spaceLeft = spaceLeft - realSpan;
             if (spaceLeft <= 0) {
                 spaceLeft = 12;
