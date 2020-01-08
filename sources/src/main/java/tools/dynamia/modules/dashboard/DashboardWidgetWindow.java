@@ -33,7 +33,7 @@ public class DashboardWidgetWindow extends Div {
         this.content = new Div();
 
         this.content.setParent(this);
-        this.content.setVflex("1");
+
 
         this.heading = new Div();
         this.heading.setSclass("panel-heading");
@@ -42,7 +42,7 @@ public class DashboardWidgetWindow extends Div {
 
         this.body = new Div();
         this.body.setSclass("panel-body");
-        this.body.setVflex("1");
+
         this.body.setParent(content);
 
 
@@ -67,6 +67,14 @@ public class DashboardWidgetWindow extends Div {
         } else if (view instanceof String) {
             String url = (String) view;
             ZKUtil.createComponent(url, body, context.getDataMap());
+        }
+
+        if (getHeight() != null) {
+            this.content.setVflex("1");
+            this.body.setVflex("1");
+        } else {
+            this.content.setVflex(null);
+            this.body.setVflex(null);
         }
     }
 
