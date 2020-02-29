@@ -22,7 +22,8 @@ public class DashboardWidgetWindow extends Div {
     private Div content;
     private Div heading;
     private Div body;
-    private DashboardContext context;
+    private DashboardContext dashboardContext;
+    private Exception lastException;
 
     public DashboardWidgetWindow(DashboardWidget widget, Field field) {
         setZclass("dashboard-widget");
@@ -56,8 +57,31 @@ public class DashboardWidgetWindow extends Div {
 
     }
 
-    public void initView(DashboardContext context) {
-        this.context = context;
+    public void showLoading() {
+        body.getChildren().clear();
+        body.appendChild(ZKUtil.createAjaxLoader(this.widget.getTitle()));
+        if (getHeight() != null) {
+            this.content.setVflex("1");
+            this.body.setVflex("1");
+        } else {
+            this.content.setVflex(null);
+            this.body.setVflex(null);
+        }
+    }
+
+    public void initView() {
+
+        if (lastException != null) {
+            body.getChildren().clear();
+            Label label = new Label("Error " + getField().getName() + ": " + lastException.getMessage());
+            label.setStyle("color: red");
+            body.appendChild(label);
+            return;
+        }
+
+        if (dashboardContext == null) {
+            return;
+        }
         body.getChildren().clear();
         renderTitle();
 
@@ -66,7 +90,7 @@ public class DashboardWidgetWindow extends Div {
             ((Component) view).setParent(body);
         } else if (view instanceof String) {
             String url = (String) view;
-            ZKUtil.createComponent(url, body, context.getDataMap());
+            ZKUtil.createComponent(url, body, dashboardContext.getDataMap());
         }
 
         if (getHeight() != null) {
@@ -79,12 +103,15 @@ public class DashboardWidgetWindow extends Div {
     }
 
     public void reload() {
-        widget.init(context);
-        initView(context);
+        initWidget();
     }
 
     public DashboardContext getDashboardContext() {
-        return context;
+        return dashboardContext;
+    }
+
+    public void setDashboardContext(DashboardContext dashboardContext) {
+        this.dashboardContext = dashboardContext;
     }
 
     private void renderTitle() {
@@ -142,4 +169,14 @@ public class DashboardWidgetWindow extends Div {
         }
     }
 
+    public void initWidget() {
+        if (dashboardContext != null) {
+            getWidget().init(dashboardContext);
+            lastException = null;
+        }
+    }
+
+    public void exceptionCaught(Exception e) {
+        this.lastException = e;
+    }
 }

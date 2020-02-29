@@ -1,12 +1,19 @@
 package tools.dynamia.modules.dashboard;
 
+import org.zkoss.zk.ui.IdSpace;
+import org.zkoss.zk.ui.event.Events;
+import org.zkoss.zk.ui.util.Clients;
 import org.zkoss.zul.Div;
 import org.zkoss.zul.Label;
 import tools.dynamia.actions.Action;
 import tools.dynamia.actions.ActionEvent;
+import tools.dynamia.commons.logger.LoggingService;
+import tools.dynamia.commons.logger.SLF4JLoggingService;
+import tools.dynamia.integration.scheduling.SchedulerUtil;
 import tools.dynamia.viewers.View;
 import tools.dynamia.viewers.ViewDescriptor;
 import tools.dynamia.zk.actions.ActionToolbar;
+import tools.dynamia.zk.util.LongOperation;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,12 +23,15 @@ import java.util.Optional;
 /**
  * @author Mario Serrano Leones
  */
-public class Dashboard extends Div implements View<List<DashboardWidgetWindow>> {
+public class Dashboard extends Div implements View<List<DashboardWidgetWindow>>, IdSpace {
 
+
+    private LoggingService logger = new SLF4JLoggingService(Dashboard.class);
     private ViewDescriptor viewDescriptor;
     private View parentView;
     private List<DashboardWidgetWindow> value = new ArrayList<>();
     private ActionToolbar actionToolbar;
+
 
     public Dashboard() {
         setSclass("dashboard");
@@ -31,17 +41,36 @@ public class Dashboard extends Div implements View<List<DashboardWidgetWindow>> 
 
     public void initWidgets() {
 
-        for (DashboardWidgetWindow window : value) {
-            DashboardContext context = new DashboardContext(this, window, window.getField());
-            try {
-                window.getWidget().init(context);
-                window.initView(context);
-            } catch (Exception e) {
-                e.printStackTrace();
-                window.getContent().getChildren().clear();
-                window.getContent().appendChild(new Label("Error init widget for " + window.getField().getName() + ": " + e.getMessage()));
+        LongOperation op = LongOperation.create();
+
+        op.execute(() -> {
+            logger.info("Loading dashboard widgets ");
+            for (DashboardWidgetWindow window : value) {
+                try {
+                    new DashboardContext(this, window, window.getField());
+                    window.initWidget();
+                } catch (Exception e) {
+                    logger.error("Error loading dashboard widget -  " + window.getWidget(), e);
+                    window.exceptionCaught(e);
+                }
             }
-        }
+        });
+
+        op.onFinish(() -> {
+            for (DashboardWidgetWindow window : value) {
+                try {
+                    new DashboardContext(this, window, window.getField());
+                    window.initView();
+                } catch (Exception e) {
+                    window.exceptionCaught(e);
+                    window.initView();
+                    logger.error("Error rendering dashboard widget -  " + window.getWidget(), e);
+                }
+            }
+            logger.info("Dashboard Loaded");
+        });
+
+        op.start();
     }
 
     public void updateWidgets(Map<String, Object> params) {

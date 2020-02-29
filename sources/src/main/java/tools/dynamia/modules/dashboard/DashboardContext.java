@@ -20,6 +20,7 @@ public class DashboardContext {
     public DashboardContext(Dashboard dashboard, DashboardWidgetWindow window, Field field) {
         this.dashboard = dashboard;
         this.window = window;
+        this.window.setDashboardContext(this);
         this.field = field;
     }
 
@@ -49,6 +50,7 @@ public class DashboardContext {
 
     /**
      * Find user info provider or null if not found
+     *
      * @return
      */
     public UserInfoProvider findUserInfo() {
