@@ -5,6 +5,7 @@ import tools.dynamia.actions.ActionLoader;
 import tools.dynamia.commons.BeanUtils;
 import tools.dynamia.viewers.*;
 import tools.dynamia.viewers.util.Viewers;
+import tools.dynamia.zk.util.ZKUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +34,7 @@ public class DashboardViewRenderer implements ViewRenderer<List<DashboardWidgetW
         loadActions(dashboard);
         dashboard.setValue(value);
         BeanUtils.setupBean(dashboard, descriptor.getParams());
+        ZKUtil.initEventQueueSubscribers(dashboard);
         dashboard.initWidgets();
         return dashboard;
     }

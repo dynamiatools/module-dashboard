@@ -116,6 +116,7 @@ public class DashboardWidgetWindow extends Div {
 
     private void renderTitle() {
         if (widget.isTitleVisible()) {
+            heading.getChildren().clear();
             Label caption = new Label(widget.getTitle());
             caption.setZclass("none");
             caption.setParent(heading);

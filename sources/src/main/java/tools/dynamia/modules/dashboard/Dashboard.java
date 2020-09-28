@@ -1,6 +1,10 @@
 package tools.dynamia.modules.dashboard;
 
+import org.zkoss.bind.sys.BinderCtrl;
+import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.IdSpace;
+import org.zkoss.zk.ui.event.Event;
+import org.zkoss.zk.ui.event.EventQueues;
 import org.zkoss.zk.ui.event.Events;
 import org.zkoss.zk.ui.util.Clients;
 import org.zkoss.zul.Div;
@@ -10,10 +14,16 @@ import tools.dynamia.actions.ActionEvent;
 import tools.dynamia.commons.logger.LoggingService;
 import tools.dynamia.commons.logger.SLF4JLoggingService;
 import tools.dynamia.integration.scheduling.SchedulerUtil;
+import tools.dynamia.ui.UIMessages;
 import tools.dynamia.viewers.View;
 import tools.dynamia.viewers.ViewDescriptor;
+import tools.dynamia.zk.EventQueueSubscriber;
+import tools.dynamia.zk.Subscribe;
 import tools.dynamia.zk.actions.ActionToolbar;
 import tools.dynamia.zk.util.LongOperation;
+import tools.dynamia.zk.util.ZKBindingUtil;
+import tools.dynamia.zk.util.ZKUtil;
+import tools.dynamia.zk.websocket.WebSocketPushSender;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,11 +36,14 @@ import java.util.Optional;
 public class Dashboard extends Div implements View<List<DashboardWidgetWindow>>, IdSpace {
 
 
+    public static final String COMMAND = "dashboard-loaded";
     private LoggingService logger = new SLF4JLoggingService(Dashboard.class);
     private ViewDescriptor viewDescriptor;
     private View parentView;
     private List<DashboardWidgetWindow> value = new ArrayList<>();
     private ActionToolbar actionToolbar;
+    private boolean loaded;
+    private boolean rendered;
 
 
     public Dashboard() {
@@ -40,23 +53,44 @@ public class Dashboard extends Div implements View<List<DashboardWidgetWindow>>,
     }
 
     public void initWidgets() {
+        WebSocketPushSender.initWS();
+        this.loaded = false;
+        this.rendered = false;
+        var desktop = Executions.getCurrent().getDesktop();
 
-        LongOperation op = LongOperation.create();
+        if (EventQueues.exists("dashboard")) {
+            UIMessages.showMessage("Cargando Dashboard.. espere");
+            return; //busy
+        }
 
-        op.execute(() -> {
-            logger.info("Loading dashboard widgets ");
-            for (DashboardWidgetWindow window : value) {
-                try {
-                    new DashboardContext(this, window, window.getField());
-                    window.initWidget();
-                } catch (Exception e) {
-                    logger.error("Error loading dashboard widget -  " + window.getWidget(), e);
-                    window.exceptionCaught(e);
-                }
-            }
+        var queue = EventQueues.lookup("dashboard");
+        queue.subscribe(op -> loadWidgets(), callback -> {
+            renderWidgets();
+            EventQueues.remove("dashboard");
         });
 
-        op.onFinish(() -> {
+        queue.publish(new Event("start"));
+
+    }
+
+    private void loadWidgets() {
+        logger.info("Loading dashboard widgets ");
+        for (DashboardWidgetWindow window : value) {
+            try {
+                new DashboardContext(this, window, window.getField());
+                window.initWidget();
+            } catch (Exception e) {
+                logger.error("Error loading dashboard widget -  " + window.getWidget(), e);
+                window.exceptionCaught(e);
+            }
+        }
+        this.loaded = true;
+        logger.info("Dashboard " + getViewDescriptor().getId() + " Loaded");
+    }
+
+
+    public void renderWidgets() {
+        try {
             for (DashboardWidgetWindow window : value) {
                 try {
                     new DashboardContext(this, window, window.getField());
@@ -67,10 +101,11 @@ public class Dashboard extends Div implements View<List<DashboardWidgetWindow>>,
                     logger.error("Error rendering dashboard widget -  " + window.getWidget(), e);
                 }
             }
-            logger.info("Dashboard Loaded");
-        });
-
-        op.start();
+            this.rendered = true;
+            logger.info("Dashboard Rendered");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void updateWidgets(Map<String, Object> params) {
@@ -133,4 +168,11 @@ public class Dashboard extends Div implements View<List<DashboardWidgetWindow>>,
         return actionToolbar.isVisible();
     }
 
+    public boolean isLoaded() {
+        return loaded;
+    }
+
+    public boolean isRendered() {
+        return rendered;
+    }
 }
