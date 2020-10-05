@@ -1,28 +1,35 @@
+/*
+ * Copyright (C)  2020. Dynamia Soluciones IT S.A.S - NIT 900302344-1
+ * Colombia - South America
+ *  All Rights Reserved.
+ *
+ * This file is free software: you can redistribute it and/or modify it  under the terms of the
+ *  GNU Lesser General Public License (LGPL v3) as published by the Free Software Foundation,
+ *   either version 3 of the License, or (at your option) any later version.
+ *
+ *  This file is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+ *   without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ *   See the GNU Lesser General Public License for more details. You should have received a copy of the
+ *   GNU Lesser General Public License along with this file.
+ *   If not, see <https://www.gnu.org/licenses/>.
+ *
+ */
+
 package tools.dynamia.modules.dashboard;
 
-import org.zkoss.bind.sys.BinderCtrl;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.IdSpace;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventQueues;
-import org.zkoss.zk.ui.event.Events;
-import org.zkoss.zk.ui.util.Clients;
 import org.zkoss.zul.Div;
-import org.zkoss.zul.Label;
 import tools.dynamia.actions.Action;
 import tools.dynamia.actions.ActionEvent;
 import tools.dynamia.commons.logger.LoggingService;
 import tools.dynamia.commons.logger.SLF4JLoggingService;
-import tools.dynamia.integration.scheduling.SchedulerUtil;
 import tools.dynamia.ui.UIMessages;
 import tools.dynamia.viewers.View;
 import tools.dynamia.viewers.ViewDescriptor;
-import tools.dynamia.zk.EventQueueSubscriber;
-import tools.dynamia.zk.Subscribe;
 import tools.dynamia.zk.actions.ActionToolbar;
-import tools.dynamia.zk.util.LongOperation;
-import tools.dynamia.zk.util.ZKBindingUtil;
-import tools.dynamia.zk.util.ZKUtil;
 import tools.dynamia.zk.websocket.WebSocketPushSender;
 
 import java.util.ArrayList;
@@ -31,6 +38,8 @@ import java.util.Map;
 import java.util.Optional;
 
 /**
+ * Dashboard main view. Need to implement a {@link ViewDescriptor} in YML or XML to describe dashboard widget. See {@link DashboardViewRenderer}
+ *
  * @author Mario Serrano Leones
  */
 public class Dashboard extends Div implements View<List<DashboardWidgetWindow>>, IdSpace {
