@@ -22,13 +22,13 @@ import tools.dynamia.actions.ActionLoader;
 import tools.dynamia.commons.BeanUtils;
 import tools.dynamia.viewers.*;
 import tools.dynamia.viewers.util.Viewers;
-import tools.dynamia.zk.util.ZKUtil;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Render {@link ViewDescriptor} of type 'dashboard' @{@link DashboardViewType}
+ *
  * @author Mario Serrano Leones
  */
 public class DashboardViewRenderer implements ViewRenderer<List<DashboardWidgetWindow>> {
@@ -37,6 +37,7 @@ public class DashboardViewRenderer implements ViewRenderer<List<DashboardWidgetW
 
     @Override
     public View<List<DashboardWidgetWindow>> render(ViewDescriptor descriptor, List<DashboardWidgetWindow> value) {
+        System.out.println("Rendering dashboard " + descriptor);
         value = new ArrayList<>();
         ViewLayout layout = descriptor.getLayout();
 
@@ -47,12 +48,11 @@ public class DashboardViewRenderer implements ViewRenderer<List<DashboardWidgetW
         }
 
         Dashboard dashboard = new Dashboard();
-
+        dashboard.setViewDescriptor(descriptor);
         renderFields(dashboard, descriptor, value, columns);
         loadActions(dashboard);
         dashboard.setValue(value);
         BeanUtils.setupBean(dashboard, descriptor.getParams());
-        ZKUtil.initEventQueueSubscribers(dashboard);
         dashboard.initWidgets();
         return dashboard;
     }
@@ -86,7 +86,7 @@ public class DashboardViewRenderer implements ViewRenderer<List<DashboardWidgetW
             String colxs = "";
             if (field.getParams().containsKey(Viewers.PARAM_SPAN + "-xs")) {
                 int spanxs = (int) field.getParams().get(Viewers.PARAM_SPAN + "-xs");
-                colxs = " col-xs-" + toBootstrapColumns(spanxs);
+                colxs = " col-" + toBootstrapColumns(spanxs);
             }
 
             int tabletColSpan = 6;
@@ -100,18 +100,19 @@ public class DashboardViewRenderer implements ViewRenderer<List<DashboardWidgetW
 
             window.setSclass("col-md-" + realSpan + " col-sm-" + tabletColSpan + colxs);
             spaceLeft = spaceLeft - realSpan;
+            window.setParent(row);
             if (spaceLeft <= 0) {
                 spaceLeft = 12;
                 row = newRow(dashboard);
             }
 
-            window.setParent(row);
+
         }
     }
 
     public Div newRow(Dashboard dashboard) {
         Div row = new Div();
-
+        row.setZclass("row");
         row.setParent(dashboard);
         return row;
     }

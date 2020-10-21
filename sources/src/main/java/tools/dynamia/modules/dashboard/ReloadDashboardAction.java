@@ -25,7 +25,7 @@ import tools.dynamia.viewers.ViewCustomizer;
 /**
  * Simple action that reload all dashboard widget
  */
-@InstallAction
+//@InstallAction
 public class ReloadDashboardAction extends DashboardAction {
 
     public ReloadDashboardAction() {

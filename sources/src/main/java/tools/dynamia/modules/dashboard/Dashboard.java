@@ -17,7 +17,6 @@
 
 package tools.dynamia.modules.dashboard;
 
-import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.IdSpace;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventQueues;
@@ -30,7 +29,6 @@ import tools.dynamia.ui.UIMessages;
 import tools.dynamia.viewers.View;
 import tools.dynamia.viewers.ViewDescriptor;
 import tools.dynamia.zk.actions.ActionToolbar;
-import tools.dynamia.zk.websocket.WebSocketPushSender;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,20 +60,18 @@ public class Dashboard extends Div implements View<List<DashboardWidgetWindow>>,
     }
 
     public void initWidgets() {
-        WebSocketPushSender.initWS();
         this.loaded = false;
         this.rendered = false;
-        var desktop = Executions.getCurrent().getDesktop();
 
-        if (EventQueues.exists("dashboard")) {
+        if (EventQueues.exists(viewDescriptor.getId())) {
             UIMessages.showMessage("Cargando Dashboard.. espere");
             return; //busy
         }
 
-        var queue = EventQueues.lookup("dashboard");
+        var queue = EventQueues.lookup(viewDescriptor.getId());
         queue.subscribe(op -> loadWidgets(), callback -> {
             renderWidgets();
-            EventQueues.remove("dashboard");
+            EventQueues.remove(viewDescriptor.getId());
         });
 
         queue.publish(new Event("start"));

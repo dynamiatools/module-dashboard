@@ -20,6 +20,10 @@
     Created on : 15/06/2016, 01:50:45 PM
     Author     : mario
 */
+.dashboard {
+    padding-left: 10px;
+    padding-right: 10px;
+}
 
 .dashboard .dashboard-widget {
     padding: 4px;
@@ -82,4 +86,27 @@
 .dashboard .dashboard-widget .panel-heading {
     color: white !important;
     font-weight: 700;
+    border-radius: 0;
+    border: none !important;
+    padding: 6px 10px;
+}
+
+.dashboard .dashboard-widget .panel-primary > .panel-heading {
+    background-color: #3bafda;
+}
+
+.dashboard .dashboard-widget .panel-inverse > .panel-heading {
+    background-color: #4c5667;
+}
+
+.dashboard .dashboard-widget .panel-danger > .panel-heading {
+    background-color: #ef5350;
+}
+
+.dashboard .dashboard-widget .panel-success > .panel-heading {
+    background-color: #00C851;
+}
+
+.dashboard .dashboard-widget .panel-warning > .panel-heading {
+    background-color: #ffaa00;
 }

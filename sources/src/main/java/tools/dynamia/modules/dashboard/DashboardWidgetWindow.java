@@ -18,6 +18,7 @@
 package tools.dynamia.modules.dashboard;
 
 import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.IdSpace;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.Events;
 import org.zkoss.zul.Button;
@@ -31,7 +32,7 @@ import tools.dynamia.zk.util.ZKUtil;
  *
  * @author Mario Serrano Leones
  */
-public class DashboardWidgetWindow extends Div {
+public class DashboardWidgetWindow extends Div implements IdSpace {
 
     public static final String ON_EDIT = "onEdit";
     private DashboardWidget widget;
