@@ -51,6 +51,7 @@ public class Dashboard extends Div implements View<List<DashboardWidgetWindow>>,
     private ActionToolbar actionToolbar;
     private boolean loaded;
     private boolean rendered;
+    private boolean asyncLoad = true;
 
 
     public Dashboard() {
@@ -63,18 +64,33 @@ public class Dashboard extends Div implements View<List<DashboardWidgetWindow>>,
         this.loaded = false;
         this.rendered = false;
 
-        if (EventQueues.exists(viewDescriptor.getId())) {
-            UIMessages.showMessage("Cargando Dashboard.. espere");
-            return; //busy
+        if (isAsyncLoad()) {
+            if (EventQueues.exists(viewDescriptor.getId())) {
+                UIMessages.showMessage("Cargando Dashboard.. espere");
+                return; //busy
+            }
+
+            var queue = EventQueues.lookup(viewDescriptor.getId());
+            queue.subscribe(op -> loadWidgets(), callback -> {
+                renderWidgets();
+                EventQueues.remove(viewDescriptor.getId());
+            });
+
+            queue.publish(new Event("start"));
+        } else {
+            for (DashboardWidgetWindow window : value) {
+                try {
+                    new DashboardContext(this, window, window.getField());
+                    window.initWidget();
+                    window.initView();
+                } catch (Exception e) {
+                    logger.error("Error loading dashboard widget -  " + window.getWidget(), e);
+                    window.exceptionCaught(e);
+                }
+            }
+            loaded = true;
+            rendered = true;
         }
-
-        var queue = EventQueues.lookup(viewDescriptor.getId());
-        queue.subscribe(op -> loadWidgets(), callback -> {
-            renderWidgets();
-            EventQueues.remove(viewDescriptor.getId());
-        });
-
-        queue.publish(new Event("start"));
 
     }
 
@@ -179,5 +195,13 @@ public class Dashboard extends Div implements View<List<DashboardWidgetWindow>>,
 
     public boolean isRendered() {
         return rendered;
+    }
+
+    public boolean isAsyncLoad() {
+        return asyncLoad;
+    }
+
+    public void setAsyncLoad(boolean asyncLoad) {
+        this.asyncLoad = asyncLoad;
     }
 }
