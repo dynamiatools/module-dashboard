@@ -20,6 +20,7 @@ package tools.dynamia.modules.dashboard;
 import org.zkoss.zk.ui.IdSpace;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventQueues;
+import org.zkoss.zk.ui.event.Events;
 import org.zkoss.zul.Div;
 import tools.dynamia.actions.Action;
 import tools.dynamia.actions.ActionEvent;
@@ -78,18 +79,23 @@ public class Dashboard extends Div implements View<List<DashboardWidgetWindow>>,
 
             queue.publish(new Event("start"));
         } else {
-            for (DashboardWidgetWindow window : value) {
-                try {
-                    new DashboardContext(this, window, window.getField());
-                    window.initWidget();
-                    window.initView();
-                } catch (Exception e) {
-                    logger.error("Error loading dashboard widget -  " + window.getWidget(), e);
-                    window.exceptionCaught(e);
+            addEventListener(Events.ON_FULFILL, evt -> {
+
+
+                for (DashboardWidgetWindow window : value) {
+                    try {
+                        new DashboardContext(this, window, window.getField());
+                        window.initWidget();
+                        window.initView();
+                    } catch (Exception e) {
+                        logger.error("Error loading dashboard widget -  " + window.getWidget(), e);
+                        window.exceptionCaught(e);
+                    }
                 }
-            }
-            loaded = true;
-            rendered = true;
+                loaded = true;
+                rendered = true;
+            });
+            Events.postEvent(new Event(Events.ON_FULFILL, this));
         }
 
     }
