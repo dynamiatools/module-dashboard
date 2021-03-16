@@ -179,4 +179,4 @@ re-rendered the `getView()` method is invoked.
 
 ## License
 
-DynamiaTools SaaS is available under Apache 2 License
+DynamiaTools Dashboard is available under Apache 2 License
