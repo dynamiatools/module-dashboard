@@ -93,15 +93,9 @@ extends `AbstractDashboardWidget` class for convenience. You should annotate thi
 Example: 
 ```java
 
-import com.dynamiasoluciones.modules.ventas.api.EstadoVenta;
-import org.springframework.beans.factory.annotation.Autowired;
-import tools.dynamia.domain.query.QueryParameters;
-import tools.dynamia.domain.services.CrudService;
-import tools.dynamia.integration.Containers;
 import tools.dynamia.modules.dashboard.AbstractDashboardWidget;
 import tools.dynamia.modules.dashboard.DashboardContext;
 import tools.dynamia.modules.dashboard.InstallDashboardWidget;
-import tools.dynamia.modules.saas.api.AccountServiceAPI;
 import tools.dynamia.zk.ui.Infobox;
 
 import java.math.BigDecimal;
