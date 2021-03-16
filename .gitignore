@@ -10,3 +10,4 @@ gen/
 *.iml
 .idea
 *.log
+*.versionsBackup
