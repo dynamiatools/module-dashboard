@@ -53,6 +53,7 @@ public class Dashboard extends Div implements View<List<DashboardWidgetWindow>>,
     private boolean loaded;
     private boolean rendered;
     private boolean asyncLoad = true;
+    private Long accountId;
 
 
     public Dashboard() {
@@ -209,5 +210,13 @@ public class Dashboard extends Div implements View<List<DashboardWidgetWindow>>,
 
     public void setAsyncLoad(boolean asyncLoad) {
         this.asyncLoad = asyncLoad;
+    }
+
+    public Long getAccountId() {
+        return accountId;
+    }
+
+    public void setAccountId(Long accountId) {
+        this.accountId = accountId;
     }
 }

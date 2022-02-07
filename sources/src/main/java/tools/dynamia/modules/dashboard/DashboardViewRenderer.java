@@ -20,6 +20,10 @@ package tools.dynamia.modules.dashboard;
 import org.zkoss.zul.Div;
 import tools.dynamia.actions.ActionLoader;
 import tools.dynamia.commons.BeanUtils;
+import tools.dynamia.commons.logger.LoggingService;
+import tools.dynamia.commons.logger.SLF4JLoggingService;
+import tools.dynamia.integration.Containers;
+import tools.dynamia.modules.saas.api.AccountServiceAPI;
 import tools.dynamia.viewers.*;
 import tools.dynamia.viewers.util.Viewers;
 
@@ -34,6 +38,7 @@ import java.util.List;
 public class DashboardViewRenderer implements ViewRenderer<List<DashboardWidgetWindow>> {
 
     private static final int DEFAULT_COLUMNS = 4;
+    private LoggingService logger = new SLF4JLoggingService(DashboardViewRenderer.class);
 
     @Override
     public View<List<DashboardWidgetWindow>> render(ViewDescriptor descriptor, List<DashboardWidgetWindow> value) {
@@ -54,7 +59,22 @@ public class DashboardViewRenderer implements ViewRenderer<List<DashboardWidgetW
         dashboard.setValue(value);
         BeanUtils.setupBean(dashboard, descriptor.getParams());
         dashboard.initWidgets();
+        loadAccountId(dashboard);
+
         return dashboard;
+    }
+
+    private void loadAccountId(Dashboard dashboard) {
+        if (dashboard.getAccountId() == null) {
+            var accountService = Containers.get().findObject(AccountServiceAPI.class);
+            if (accountService != null) {
+                try {
+                    dashboard.setAccountId(accountService.getCurrentAccountId());
+                } catch (Exception e) {
+                    logger.warn("Cannot load account id from dashbarod " + dashboard + ": " + e.getMessage());
+                }
+            }
+        }
     }
 
     private void loadActions(Dashboard dashboard) {
