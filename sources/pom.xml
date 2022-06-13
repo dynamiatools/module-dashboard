@@ -23,7 +23,7 @@
     <name>DynamiaModules - Dashboard</name>
     <description>DynamiaTools module to create and show dashboard with widgets support</description>
     <url>https://www.dynamia.tools/modules/dashboard</url>
-    <version>1.5.1</version>
+    <version>1.6.0</version>
     <packaging>jar</packaging>
     <properties>
         <java.version>11</java.version>
@@ -32,7 +32,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
-        <dynamiatools.version>4.0.6</dynamiatools.version>
+        <dynamiatools.version>4.1.0</dynamiatools.version>
         <saas.version>2.7.2</saas.version>
     </properties>
 
