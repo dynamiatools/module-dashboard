@@ -33,7 +33,7 @@
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
         <dynamiatools.version>4.1.0</dynamiatools.version>
-        <saas.version>2.7.2</saas.version>
+        <saas.version>2.8.0</saas.version>
     </properties>
 
     <developers>

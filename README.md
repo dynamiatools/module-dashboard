@@ -20,14 +20,14 @@ Add the following dependencies to project classpath
 <dependency>
     <groupId>tools.dynamia.modules</groupId>
     <artifactId>tools.dynamia.modules.dashboard</artifactId>
-    <version>1.5.0</version>
+    <version>1.6.0</version>
 </dependency>
 ```
 
 **Gradle**
 
 ```groovy
-compile 'tools.dynamia.modules:tools.dynamia.modules.dashboard:1.5.0'
+compile 'tools.dynamia.modules:tools.dynamia.modules.dashboard:1.6.0'
 ```
 
 ## Usage
