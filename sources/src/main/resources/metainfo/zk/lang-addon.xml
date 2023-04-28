@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  ~ Copyright (C) 2021 Dynamia Soluciones IT S.A.S - NIT 900302344-1
+  ~ Copyright (C) 2023 Dynamia Soluciones IT S.A.S - NIT 900302344-1
   ~ Colombia / South America
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -19,7 +19,7 @@
 <language-addon>
     <!-- The name of this addon. It must be unique -->
     <addon-name>dynamiadashboard</addon-name>
-    
+
 
     <!-- Which language this addon will be added to -->
     <language-name>xul/html</language-name>
@@ -31,6 +31,6 @@
 
 
     <stylesheet href="/zkau/web/tools/dashboard/dashboard-1.4.0.css" type="text/css"/>
-    
+
 
 </language-addon>
