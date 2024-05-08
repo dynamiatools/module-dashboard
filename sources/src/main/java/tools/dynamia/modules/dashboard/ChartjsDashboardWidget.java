@@ -18,19 +18,50 @@
 package tools.dynamia.modules.dashboard;
 
 
-import tools.dynamia.zk.addons.chartjs.Chartjs;
-import tools.dynamia.zk.addons.chartjs.ChartjsColorPalette;
-import tools.dynamia.zk.addons.chartjs.ChartjsData;
+import tools.dynamia.zk.ui.chartjs.Chartjs;
+import tools.dynamia.zk.ui.chartjs.ChartjsColorPalette;
+import tools.dynamia.zk.ui.chartjs.ChartjsData;
 
 /**
  * Helper class to create ChartJS Widgets
+ *
  * @author Mario Serrano Leones
  */
 public abstract class ChartjsDashboardWidget extends AbstractDashboardWidget<Chartjs> {
 
     private ChartjsData data;
-    private static ChartjsColorPalette COLORS = new ChartjsColorPalette("Material", new String[]{
-
+    public static final ChartjsColorPalette MATERIAL_COLORS = new ChartjsColorPalette("Material", new String[]{
+            "#3366cc",
+            "#dc3912",
+            "#ff9900",
+            "#109618",
+            "#990099",
+            "#0099c6",
+            "#dd4477",
+            "#66aa00",
+            "#b82e2e",
+            "#316395",
+            "#994499",
+            "#22aa99",
+            "#aaaa11",
+            "#6633cc",
+            "#e67300",
+            "#8b0707",
+            "#651067",
+            "#329262",
+            "#5574a6",
+            "#3b3eac",
+            "#b77322",
+            "#16d620",
+            "#b91383",
+            "#f4359e",
+            "#9c5935",
+            "#a9c413",
+            "#2a778d",
+            "#668d1c",
+            "#bea413",
+            "#0c5922",
+            "#743411"
     });
 
     @Override
@@ -49,6 +80,11 @@ public abstract class ChartjsDashboardWidget extends AbstractDashboardWidget<Cha
 
     public abstract String getChartjsType();
 
+    /**
+     * customize chart before rendering
+     *
+     * @param chart
+     */
     protected void customizeChart(Chartjs chart) {
 
     }

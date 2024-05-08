@@ -25,12 +25,12 @@
     <language-name>xul/html</language-name>
 
     <version>
-        <version-uid>1.4.0</version-uid>
+        <version-uid>2.1.0</version-uid>
         <zk-version>7.0.0</zk-version><!-- or later -->
     </version>
 
 
-    <stylesheet href="/zkau/web/tools/dashboard/dashboard-1.4.0.css" type="text/css"/>
+    <stylesheet href="/static/dynamia-tools/css/dashboard-2.1.0.css" type="text/css"/>
 
 
 </language-addon>
