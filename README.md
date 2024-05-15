@@ -1,5 +1,5 @@
 [![Maven Central](https://img.shields.io/maven-central/v/tools.dynamia.modules/tools.dynamia.modules.dashboard)](https://search.maven.org/search?q=tools.dynamia.modules.dashboard)
-![Java Version Required](https://img.shields.io/badge/java-%3E%3D11-blue)
+![Java Version Required](https://img.shields.io/badge/java-17-blue)
 [![Maven Build](https://github.com/dynamiatools/module-dashboard/actions/workflows/maven.yml/badge.svg)](https://github.com/dynamiatools/module-dashboard/actions/workflows/maven.yml)
 
 # Dashboard Module
@@ -20,14 +20,14 @@ Add the following dependencies to project classpath
 <dependency>
     <groupId>tools.dynamia.modules</groupId>
     <artifactId>tools.dynamia.modules.dashboard</artifactId>
-    <version>1.7.0</version>
+    <version>2.1.0</version>
 </dependency>
 ```
 
 **Gradle**
 
 ```groovy
-compile 'tools.dynamia.modules:tools.dynamia.modules.dashboard:1.7.0'
+compile 'tools.dynamia.modules:tools.dynamia.modules.dashboard:2.1.0'
 ```
 
 ## Usage
