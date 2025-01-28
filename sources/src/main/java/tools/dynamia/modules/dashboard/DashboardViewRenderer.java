@@ -106,7 +106,7 @@ public class DashboardViewRenderer implements ViewRenderer<List<DashboardWidgetW
             String colxs = "";
             if (field.getParams().containsKey(Viewers.PARAM_SPAN + "-xs")) {
                 int spanxs = (int) field.getParams().get(Viewers.PARAM_SPAN + "-xs");
-                colxs = " col-" + toBootstrapColumns(spanxs);
+                colxs = " dt-col-" + toBootstrapColumns(spanxs);
             }
 
             int tabletColSpan = 6;
@@ -118,7 +118,7 @@ public class DashboardViewRenderer implements ViewRenderer<List<DashboardWidgetW
             } catch (Exception e) {
             }
 
-            window.setSclass("col-md-" + realSpan + " col-sm-" + tabletColSpan + colxs);
+            window.setSclass("dt-col-md-" + realSpan + " dt-col-sm-" + tabletColSpan + colxs);
             spaceLeft = spaceLeft - realSpan;
             window.setParent(row);
             if (spaceLeft <= 0) {
@@ -132,7 +132,7 @@ public class DashboardViewRenderer implements ViewRenderer<List<DashboardWidgetW
 
     public Div newRow(Dashboard dashboard) {
         Div row = new Div();
-        row.setZclass("row");
+        row.setZclass("dt-row");
         row.setParent(dashboard);
         return row;
     }

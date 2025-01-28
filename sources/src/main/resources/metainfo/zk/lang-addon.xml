@@ -30,7 +30,7 @@
     </version>
 
 
-    <stylesheet href="/static/dynamia-tools/css/dashboard-2.1.0.css" type="text/css"/>
+    <stylesheet href="/static/dynamia-tools/css/dashboard-2.2.0.css" type="text/css"/>
 
 
 </language-addon>
